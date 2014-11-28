@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+public class Main {
+	static int node;
+	static int edge;
+	static int x;
+	static Scanner input;
+
+	public static void main(String[] args) {
+		input = new Scanner(System.in);
+		x = Integer.MAX_VALUE;
+
+		node = input.nextInt();
+		edge = input.nextInt();
+		while (node != 0 || edge != 0) {
+			int switches[] = new int[node + 1];
+			for (int i = 1; i <= node; i++) {
+				input.nextInt();
+				switches[i] = input.nextInt();
+			}
+			int pathArray[][] = new int[node + 1][node + 1];
+			for (int i = 0; i < edge; i++) {
+				int a = input.nextInt();
+				int b = input.nextInt();
+				int p = input.nextInt();
+				pathArray[a][b] = switches[a] + p + switches[b];
+				pathArray[b][a] = switches[b] + p + switches[a];
+			}
+
+			blockthepath(pathArray);
+			execute(switches, pathArray);
+
+			int i = input.nextInt();
+			int j = input.nextInt();
+			while (i != -1 || j != -1) {
+				int t = pathArray[i][j];
+				if (t == x) {
+					System.out.println(0);
+				} else {
+					System.out.println(pathArray[i][j]);
+				}
+
+				i = input.nextInt();
+				j = input.nextInt();
+			}
+			node = input.nextInt();
+			edge = input.nextInt();
+		}
+	}
+
+	private static void execute(int[] switches, int[][] pathArray) {
+		for (int k = 1; k < pathArray.length; k++) {
+			for (int i = 1; i < pathArray.length; i++) {
+				for (int j = 1; j < pathArray.length; j++) {
+					if (pathArray[i][j] != x && pathArray[i][k] != x
+							&& pathArray[k][j] != x) {
+						if (pathArray[i][j] > pathArray[i][k] - switches[k]
+								+ pathArray[k][j]) {
+							pathArray[i][j] = pathArray[i][k] - switches[k]
+									+ pathArray[k][j];
+						}
+					} else if (pathArray[i][j] == x && pathArray[i][k] != x
+							&& pathArray[k][j] != x) {
+						pathArray[i][j] = pathArray[i][k] - switches[k]
+								+ pathArray[k][j];
+					}
+
+				}
+			}
+		}
+
+	}
+
+	private static void blockthepath(int[][] pathArray) {
+		for (int i = 1; i < pathArray.length; i++) {
+			for (int j = 1; j < pathArray.length; j++) {
+				if (pathArray[i][j] == 0) {
+					pathArray[i][j] = x;
+				}
+			}
+		}
+	}
+}

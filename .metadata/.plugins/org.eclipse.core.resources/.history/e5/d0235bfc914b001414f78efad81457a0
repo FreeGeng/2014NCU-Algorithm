@@ -1,0 +1,61 @@
+//基數排序法（radix sort）
+
+import java.util.*;
+
+public class Main {
+	static int groupNum;
+	static int index;
+	static Scanner scanner = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		groupNum = scanner.nextInt();
+		for (int i = 1; i <= groupNum; i++) {
+			index = scanner.nextInt();
+			int a1[] = new int[index];
+			String input = scanner.next();
+			String[] numString = input.split(",");
+			for (int j = 0; j < index; j++) {
+				a1[j] = Integer.parseInt(numString[j]);
+			}
+			radixSort(a1);
+		}
+	}
+
+	static void radixSort(int a[]) {
+		int bucket[][] = new int[10][index];
+		int order[] = new int[10];
+		int n = 1;
+        int k =0;
+		while (n <= 1000) {
+
+			// 放入桶子
+			for (int i = 0; i < a.length; i++) {
+				int lsd = ((a[i] / n) % 10);
+				bucket[lsd][order[lsd]] = a[i];
+				order[lsd]++;
+			}
+
+			// 重新排列
+			for (int i = 0; i < 10; i++) {
+				if (order[i] != 0) {
+					// 從編號1~10的bucket取出值重新塞回陣列
+						for (int j = 0; j < order[i]; j++,k++) {
+
+							a[k] = bucket[i][j];
+							
+						}
+					
+						
+				}
+				order[i] = 0;
+			}
+			for(int y =0;y<a.length;y++){
+				System.out.print(a[y]+" ");
+			}
+			
+			n *= 10;
+			System.out.println();
+		}
+
+	}
+}

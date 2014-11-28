@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class Main2 {
+
+	static Scanner scanner = new Scanner(System.in);
+	static int T;
+	static int N;
+	static int a[];
+
+
+	public static void main(String args[]) {
+		while (scanner.hasNext()) {
+			String temp[] = scanner.nextLine().split(" ");
+			T = Integer.parseInt(temp[0]);
+			N = Integer.parseInt(temp[1]);
+			a = new int[N];
+			for (int i = 0; i < N; i++) {
+				a[i] = Integer.parseInt(scanner.nextLine());
+			}
+
+		}
+	}
+
+	
+}
