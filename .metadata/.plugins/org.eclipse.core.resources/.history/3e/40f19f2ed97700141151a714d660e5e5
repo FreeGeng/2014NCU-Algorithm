@@ -1,0 +1,72 @@
+import java.net.*;
+import java.io.*;
+
+public class Server {
+	static ServerSocket serverSocket;
+	static listenClient listen;
+	static int port;
+
+	public static void main(String args[]) throws Exception {
+		if (args.length == 0) {
+			System.out.println("Usage:Server [port]");
+			System.exit(1);
+			port = Integer.parseInt(args[0]);
+			startServer(port);
+
+		}
+	}
+
+	public static void startServer(int port) throws Exception {
+		try {
+			serverSocket = new ServerSocket(port);
+
+			Thread thread = new Thread(new listenClient(serverSocket));
+			thread.start();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+}
+
+class listenClient implements Runnable {
+	ServerSocket serverSocket;
+	Socket clientSocket;
+
+	DataInputStream in;
+	DataOutputStream out;
+
+	// constructor
+	public listenClient(ServerSocket serverSocket) throws Exception {
+		this.serverSocket = serverSocket;
+	}
+
+	public void run() {
+		try {
+			while (true) {
+				clientSocket = serverSocket.accept();
+				System.out.println("Connection from "
+						+ clientSocket.getInetAddress().getHostAddress());
+
+				in = new DataInputStream(clientSocket.getInputStream());
+				out = new DataOutputStream(clientSocket.getOutputStream());
+
+				// Line Separator
+				String lineSep = System.getProperty("line.separator");
+
+				InetAddress addr = serverSocket.getInetAddress().getLocalHost();
+
+				String outData = "Server Information: " + lineSep
+						+ "  Local Host: "
+						+ serverSocket.getInetAddress().getLocalHost()
+						+ lineSep + "  Port      : "
+						+ serverSocket.getLocalPort();
+
+				byte[] outByte = outData.getBytes();
+				out.write(outByte, 0, outByte.length);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+}

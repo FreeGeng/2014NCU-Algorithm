@@ -1,0 +1,14 @@
+<!-- textview1是創立給spinner使用的一個layout -->
+
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"   
+    android:textColor="#FFFFFF" 
+    android:background="#000000"
+    android:textSize="30dp"
+  >
+
+</TextView>

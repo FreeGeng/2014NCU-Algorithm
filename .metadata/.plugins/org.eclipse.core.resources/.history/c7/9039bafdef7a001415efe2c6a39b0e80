@@ -1,0 +1,86 @@
+package com.example.android_lookforcoffee;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+public class LookForCoffee extends Activity {
+
+	private Spinner citySpinner;
+	private Spinner districtSpinner;
+	//city
+	private String[] city = {"基隆市","台北市","新北市","大桃園","新竹市","新竹縣","苗栗縣市","大台中","南投縣市"
+			                 ,"彰化縣市","雲林縣","嘉義縣市","大台南","大高雄","屏東縣市","台東縣市","花蓮縣市"
+			                 ,"宜蘭縣市"};
+	private ArrayAdapter<String> cityList;
+	//district
+	private String[][] district = {
+			 {"仁愛區","中正區","信義區","中山區","安樂區","七堵區","暖暖區"},
+			  
+		     {"中正區","大同區","中山區","松山區","大安區","萬華區","信義區","士林區","北投區","內湖區","南港區","文山區"},
+		  
+		     {"板橋區","三重區","中和區","新莊區","永和區","土城區","樹林區","三峽區","鶯歌區","三重區","蘆洲區","五股區"
+		      ,"泰山區","林口區","淡水區","金山區","八里區","萬里區","石門區","三芝區","瑞芳區","汐止區","平溪區","貢寮區"
+		      ,"雙溪區","深坑區","石碇區","新店區","坪林區","烏來區"},
+		  
+		        {"地区4_1","地区4_2","地区4_3"},
+		  
+		        {"地区5_1","地区5_2","地区5_3"},
+		  
+		        {"地区6_1","地区6_2","地区6_3"},
+	};
+	private ArrayAdapter<String> districtList;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.look_for_coffee_gui);
+		
+		citySpinner = (Spinner)findViewById(R.id.spinner1);
+		districtSpinner = (Spinner)findViewById(R.id.spinner2);
+		//textview1是指派給spinner使用的一個layout
+		cityList = new ArrayAdapter<String>(this,R.layout.textview1,city);	
+		//設定下拉選單的樣式
+		cityList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		citySpinner.setAdapter(cityList);
+		
+		citySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+			            public void onItemSelected(AdapterView adapterView, View view, int position, long id){
+			                Toast.makeText(LookForCoffee.this, "您選擇"+adapterView.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+			               
+			                districtList = new ArrayAdapter<String>(LookForCoffee.this,R.layout.textview2,district[position]);
+			                districtList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			        		districtSpinner.setAdapter(districtList);
+			            }
+			            public void onNothingSelected(AdapterView arg0) {
+			                Toast.makeText(LookForCoffee.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
+			            }
+		        });
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.look_for_coffee, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.title) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

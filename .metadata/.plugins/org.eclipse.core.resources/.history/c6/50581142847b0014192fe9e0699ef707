@@ -1,0 +1,67 @@
+package eightQueen;
+
+public class Main {
+	public static int num = 0; // 累計方案總數
+	public static final int MAXQUEEN = 8;// 皇后個數
+	public static int[] cols = new int[MAXQUEEN]; // 
+
+	public Main() {
+		// 核心函数
+		getArrangement(0);
+		System.out.print("/n");
+		System.out.println(MAXQUEEN + "皇后問題有" + num + "種方法。");
+	}
+
+	public void getArrangement(int n) {
+		// 遍歷該列所有不合法的行，並用rows數組記錄，不合法即rows[i]=true
+		boolean[] rows = new boolean[MAXQUEEN];
+		for (int i = 0; i < n; i++) {
+			rows[cols[i]] = true;
+			int d = n - i;
+			if (cols[i] - d >= 0)
+				rows[cols[i] - d] = true;
+			if (cols[i] + d <= MAXQUEEN - 1)
+				rows[cols[i] + d] = true;
+
+		}
+		for (int i = 0; i < MAXQUEEN; i++) {
+			// 判斷是否合法
+			if (rows[i])
+				continue;
+			// 當前列合法棋子所在個數
+			cols[n] = i;
+			// 當前列不為最後一列時
+			if (n < MAXQUEEN - 1) {
+				getArrangement(n + 1);
+			} else {
+
+				// 累計個數
+				num++;
+				
+				printChessBoard();
+			}
+
+		}
+
+	}
+
+	public void printChessBoard() {
+
+		System.out.print("第" + num + "種走法 /n");
+
+		for (int i = 0; i < MAXQUEEN; i++) {
+			for (int j = 0; j < MAXQUEEN; j++) {
+				if (i == cols[j]) {
+					System.out.print("0 ");
+				} else
+					System.out.print("+ ");
+			}
+			System.out.print("/n");
+		}
+
+	}
+
+	public static void main(String args[]) {
+		Main queen = new Main();
+	}
+}

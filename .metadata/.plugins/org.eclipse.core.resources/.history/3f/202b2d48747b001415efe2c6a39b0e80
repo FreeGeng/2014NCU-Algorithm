@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class Main {
+static Scanner scanner = new Scanner(System.in);
+static int N;
+static int total;
+static int number[];
+static String symbol[];
+static String solution[];
+
+	public static void main(String args[]){
+		  while(scanner.hasNext()){
+			  String temp[] = scanner.nextLine().split(" ");
+			  N=Integer.parseInt(temp[0]);
+			  total=Integer.parseInt(temp[N+1]);
+			  number=new int[N];
+			  
+			  for(int i =0;i<N;i++){
+				  number[i]=Integer.parseInt(temp[i+1]);
+			  }
+			 enu();
+		  }
+	}
+	
+	static void backtrack(int n) {
+		if (n == N) {
+				for (int k = 0; k < N; k++) {
+					System.out.print(solution[k] + " ");
+				}
+				System.out.println();
+			
+
+		} else {
+			for (int i = 0; i <2; i++) {
+				solution[n] =symbol[i];
+				backtrack(n + 1);
+			}
+		}
+	}
+
+	static void enu() {
+    solution = new String[N];
+    symbol = new String[2];
+    symbol[0]="*";
+    symbol[1]="+";
+		backtrack(0);
+
+	}
+	
+}

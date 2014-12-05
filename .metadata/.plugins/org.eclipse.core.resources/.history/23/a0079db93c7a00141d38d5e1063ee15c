@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <TextView
+        android:id="@+id/textView1"
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:text="@string/homePageText1" 
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"/>

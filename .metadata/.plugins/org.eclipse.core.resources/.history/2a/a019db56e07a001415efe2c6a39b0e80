@@ -1,0 +1,7 @@
+district<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title">lookForCoffee</string>
+    <string name="homePageText1">Choose The City!</string>
+    <string name="homePageText2">Choose The District!</string>
+
+</resources>

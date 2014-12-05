@@ -1,0 +1,46 @@
+package com.example.android_lookforcoffee;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+public class LookForCoffee extends Activity {
+
+	private Spinner spinner;
+	private String[] city = {"基隆市","台北市","新北市","大桃園","新竹市","新竹縣","苗栗縣市","大台中","南投縣市"
+			                 ,"彰化縣市","雲林縣","嘉義縣市","大台南","大高雄","屏東縣市","台東縣市","花蓮縣市"
+			                 ,"宜蘭縣市"};
+	private ArrayAdapter<String> cityList;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.look_for_coffee_gui);
+		spinner = (Spinner)findViewById(R.id.spinner1);
+		//textview1是指派給spinner使用的一個layout
+		cityList = new ArrayAdapter<String>(this,R.layout.textview1,city);
+		spinner.setAdapter(cityList);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.look_for_coffee, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.title) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

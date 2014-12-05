@@ -1,0 +1,65 @@
+import java.util.*;
+
+public class Main {
+static Scanner scanner = new Scanner(System.in);
+static int N;
+static int total;
+static int sum;
+static int number[];
+static String symbol[];
+static String solution[];
+
+	public static void main(String args[]){
+		  while(scanner.hasNext()){
+			 
+			  String temp[] = scanner.nextLine().split(" ");
+			  N=Integer.parseInt(temp[0]);
+			  sum=Integer.parseInt(temp[1]);
+			  total=Integer.parseInt(temp[N+1]);
+			  number=new int[N];
+			  
+			  for(int i =0;i<N;i++){
+				  number[i]=Integer.parseInt(temp[i+1]);
+			  }
+			 enu();
+			 for(int i=1;i<N;i++){
+				 judge(solution[i-1],number[i]);
+			 }
+		  }
+	}
+	
+	static void backtrack(int n) {
+		if (n == N) {
+//				
+			for(int i=1;i<N;i++){
+				 judge(solution[i-1],number[i]);
+			 }
+				System.out.println(sum);
+			sum=0;
+
+		} else {
+			for (int i = 0; i <2; i++) {
+				solution[n] =symbol[i];
+				backtrack(n + 1);
+			}
+		}
+	}
+
+	static void enu() {
+    solution = new String[N];
+    symbol = new String[2];
+    symbol[0]="*";
+    symbol[1]="+";
+	backtrack(0);
+
+	}
+	
+	static void judge(String a,int i){
+		if(a.equals("+")){
+			sum=sum+i;
+		}
+		else{
+			sum=sum*i;
+		}
+	}
+}
