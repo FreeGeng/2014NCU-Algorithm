@@ -1,35 +1,24 @@
 package practice;
 
-import java.util.*;
+public class practice{
+    public static void main(String args[]) throws Exception{
 
-public class practice {
+        char asc[]={'A', 'M', 'B', 'T', 'P', 'Q'};
 
-	static Scanner scanner = new Scanner(System.in);
+        for(int i=0; i<asc.length; i++){
+          for(int j=i+1; j<asc.length; j++){
 
-	public static void main(String args[]) {
+             if(asc[i]>asc[j]){
+                 char t = asc[i];
+                 asc[i]=asc[j];
+                 asc[j]=t;
+             }
+          }
+        }
 
-		int n = scanner.nextInt();
-		for (int i = n; i >= 2; i--) {
-			boolean b = primeJudge(i);
-			if (b == true) {
-				System.out.print(i);
-			break;
-			}
-		}
-	}
-
-	public static boolean primeJudge(int n) {
-		boolean s = false;
-		if (n > 1) {
-			for (int i = 2; i < n; i++) {
-				if (n % i == 0) {
-					break;
-				}
-				if (n % i != 0 && i == n - 1) {
-					s = true;
-				}
-			}
-		}
-		return s;
-	}
+        for(int i=0; i<asc.length; i++){
+            System.out.println(asc[i]);
+        }
+    }
 }
+
